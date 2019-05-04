@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block article %}
+<article>
+    {% block lbox %}{% endblock lbox %}
+    <div class="rbox">
+        <div class="whitebg paihang">
+            <h2 class="htitle">点击排行</h2>
+            <ul>
+                {% for article in top_articles %}
+                <li><i></i><a href="{% url 'blog:detail' article.id %}">{{ article.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="whitebg tuijian">
+        <h2 class="htitle">{% block recommend %}热门推荐{% endblock recommend %}</h2>
+        <ul>
+            {% for article in recommend_articles %}
+            <li>
+                <a href="{% url 'blog:detail' article.id %}">
+                    <i><img src="{{ article.img.url }}"></i>
+            <p>{{ article.title }}</p>
+                 </a>
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
+
+        <div class="whitebg wenzi">
+            <h2 class="htitle">猜你喜欢</h2>
+            <ul>
+                {% for article in interesting_articles %}
+                <li><a href="{% url 'blog:detail' article.id %}">{{ article.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="whitebg cloud">
+            <h2 class="htitle">标签云</h2>
+            <ul>
+                {% for tag in tags %}
+                <a href="{% url 'blog:tag_list' tag.id 1 %}">{{ tag.name }}</a>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</article>
+{% endblock article %}

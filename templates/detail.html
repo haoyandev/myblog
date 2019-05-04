@@ -1,0 +1,40 @@
+{% extends 'base_detail_list.html' %}
+{% block lbox %}
+<div class="lbox">
+    <div class="content_box whitebg">
+    <h2 class="htitle">
+        <span class="con_nav">您现在的位置是：<a href="{% url 'blog:index' %}">首页</a>&nbsp;>&nbsp;
+            <a href="{% url 'blog:category_list' article.category.id 1 %}">{{ article.category }}</a>
+        </span>
+        {{ article.category }}
+    </h2>
+    <h1 class="con_tilte">{{ article.title }}</h1>
+    <p class="bloginfo"><span></span><span>{{ article.create_time }}</span>
+        <span>【{{ article.category }}】</span>
+        {{ article.read }}人已围观</span></p>
+    <p class="con_info">
+        <b>简介</b>
+        {{ article.digest }}
+    <div class="con_text">
+        {{ article.content | safe }}
+    <p>
+        Tags：
+        {% for tag in article.tags.all %}
+        <a href="{% url 'blog:tag_list' tag.id 1 %}">{{ tag.name }}</a>
+        {% endfor %}
+    </p>
+
+    <div class="nextinfo">
+        {% if prev_article %}
+        <p>上一篇：<a href="{% url 'blog:detail' prev_article.id %}">{{ prev_article.title }}</a></p>
+        {% endif %}
+        {% if next_article %}
+        <p>下一篇：<a href="{% url 'blog:detail' next_article.id %}">{{ next_article.title }}</a></p>
+        {% endif %}
+    </div>
+    </div>
+    </div>
+
+
+</div>
+{% endblock lbox %}
